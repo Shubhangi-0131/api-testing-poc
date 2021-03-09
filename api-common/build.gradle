@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok'
+    id 'jacoco'
+}
+
+group 'com.tnt.test'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_11
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:3.0.6'
+    implementation 'io.rest-assured:rest-assured:4.3.2'
+    implementation 'org.apache.logging.log4j:log4j-api:2.14.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.0'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.assertj:assertj-core:3.18.1'
+    testImplementation 'com.github.tomakehurst:wiremock:2.27.2'
+    testImplementation 'com.google.code.gson:gson:2.8.6'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+    outputs.upToDateWhen { false }
+}
+
+jacocoTestReport {
+    dependsOn test
+}
+
+jacoco {
+    toolVersion = "0.8.6"
+    reportsDir = file("$buildDir/jacoco")
+}

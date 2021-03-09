@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok'
+    id 'io.qameta.allure'
+}
+
+group 'com.tnt.test'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':api-common')
+    implementation 'org.codehaus.groovy:groovy-all:3.0.6'
+    implementation 'io.rest-assured:rest-assured:4.3.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.apache.logging.log4j:log4j-api:2.14.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.0'
+    implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.14.0'
+    testImplementation 'org.testng:testng:7.3.0'
+    testImplementation 'org.assertj:assertj-core:3.18.1'
+    testImplementation 'io.qameta.allure:allure-junit5:2.13.7'
+    testRuntimeOnly('io.qameta.allure:allure-junit5:2.10.0')
+    testImplementation('io.qameta.allure:allure-selenide:2.10.0')
+    apply plugin: 'io.qameta.allure'
+}
+
+test {
+    systemProperty 'apiUrl', apiUrl
+    reports.junitXml.outputPerTestCase = true
+
+    useTestNG() {
+        useDefaultListeners = true
+        suiteName = "BestBuy API Test Suite"
+    }
+
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+        afterSuite { desc, result ->
+            if (!desc.parent)
+                println("${result.resultType} " +
+                        "(${result.testCount} tests, " +
+                        "${result.successfulTestCount} successes, " +
+                        "${result.failedTestCount} failures, " +
+                        "${result.skippedTestCount} skipped)")
+        }
+    }
+    outputs.upToDateWhen { false }
+}
+
+apply plugin: 'io.qameta.allure'
+
+allure {
+    autoconfigure = true
+    version = '2.13.7'
+    downloadLink = 'https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.13.7/allure-commandline-2.13.7.zip'
+}

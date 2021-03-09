@@ -1,0 +1,4 @@
+rootProject.name = 'api-testing-poc'
+include 'api-common'
+include 'api-testing-testng'
+

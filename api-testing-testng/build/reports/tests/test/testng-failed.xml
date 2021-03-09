@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [BestBuy API Test Suite]" verbose="0">
+  <test thread-count="5" name="Gradle test(failed)" verbose="0">
+    <classes>
+      <class name="ServicesApiTest">
+        <methods>
+          <include name="getApiUrl"/>
+          <include name="getServices_DefaultLimit_ShouldReturn10Results"/>
+          <include name="createService_checkId_ShouldReturnService"/>
+          <include name="getServices_SortByNameAscending_ShouldReturnSortedResults"/>
+        </methods>
+      </class> <!-- ServicesApiTest -->
+      <class name="StoresApiTest">
+        <methods>
+          <include name="getStores_DefaultLimit_ShouldReturn10Results"/>
+          <include name="getApiUrl"/>
+        </methods>
+      </class> <!-- StoresApiTest -->
+    </classes>
+  </test> <!-- Gradle test(failed) -->
+</suite> <!-- Failed suite [BestBuy API Test Suite] -->

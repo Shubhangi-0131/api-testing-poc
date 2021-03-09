@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok' version '5.3.0'
+    id 'io.qameta.allure' version '2.8.1'
+}
+
+group 'com.tnt.test'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':api-common')
+    implementation 'org.codehaus.groovy:groovy-all:3.0.6'
+    implementation 'io.rest-assured:rest-assured:4.3.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.apache.logging.log4j:log4j-api:2.14.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.0'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.assertj:assertj-core:3.18.1'
+    testImplementation 'io.qameta.allure:allure-junit5:2.13.7'
+   apply plugin: 'io.qameta.allure'
+}
+
+test {
+    systemProperty 'apiUrl', apiUrl
+    reports.junitXml.outputPerTestCase = true
+
+    useJUnitPlatform(){
+
+    }
+
+    testLogging {
+        //events "PASSED", "FAILED", "SKIPPED"
+        afterSuite { desc, result ->
+            if (!desc.parent)
+                println("${result.resultType} " +
+                        "(${result.testCount} tests, " +
+                        "${result.successfulTestCount} successes, " +
+                        "${result.failedTestCount} failures, " +
+                        "${result.skippedTestCount} skipped)")
+        }
+    }
+    outputs.upToDateWhen { false }
+}
+
+allure{
+   useJUnit5 {
+       version = '2.13.7'
+    }
+    downloadLink = 'https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.13.7/allure-commandline-2.13.7.zip'
+
+}
