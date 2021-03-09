@@ -66,7 +66,7 @@ public class OnlineshopApiTest {
         public void createProduct_checkId_ShouldReturnNewProduct () throws InvalidResponseException, IOException {
 
         Properties pro = new Properties();
-        FileInputStream file = new FileInputStream("C:\\Demo\\api-testing-poc\\api-testing-poc\\src\\main\\java\\petclinic\\api\\onlineshop\\PostData.Properties");
+        FileInputStream file = new FileInputStream("C:\\Demo\\api-testing-poc\\api-testing-poc\\src\\main\\java\\petclinic\\api\\onlineshop\\PostData.properties");
         pro.load(file);
             OnlineshopApiClient client = new OnlineshopApiClient(apiUrl, "/api/shop/addtocart/");
 
