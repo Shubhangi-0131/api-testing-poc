@@ -1,9 +1,0 @@
--Request URI:	http://localhost:3030/services
-Body:
-{"name":"New Service"}
--Request URI:	http://localhost:3030/services
-Body:			<none>
-ARequest URI:	http://localhost:3030/services?%24sort%5Bname%5D=1
-Body:			<none>
-+Request URI:	http://localhost:3030/stores
-Body:			<none>
