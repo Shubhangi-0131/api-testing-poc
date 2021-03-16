@@ -24,6 +24,17 @@ pipeline {
 	post {
 		success {
 		    sh 'echo "Your test execution is done and reports will be avaible at - http://tnt-aks-automator.eastus.cloudapp.azure.com/build/reports/tests/test/index.html" in sometime.'
+			always {
+            script {
+              allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'build/allure-results']]
+              ])
+            }
+          }
 		}
 		failure {
 		    echo "Please check logs for more details."
